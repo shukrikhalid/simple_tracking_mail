@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<h1 align="center">Staffs</h1>
+
+<%= form_tag({controller: "staffs", action: "index"}, method: "get", class: "form-inline my-2 my-lg-0") do %>
+    <%= text_field_tag :search, @search, {class: "form-control mr-sm-2", placeholder: "Search" } %>
+    <%= submit_tag "Search" , class: "btn btn-outline-success my-2 my-sm-0" %>
+<% end %>
+
+<table class="table table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>Staff no</th>
+      <th>Name</th>
+      <th>Phone no</th>
+      <th>Email</th>
+      <th>Admin</th>
+      <th>Position</th>
+      <th>Department</th>
+      <th colspan="3">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @staffs.each do |staff| %>
+      <tr>
+        <td><%= staff.staff_no %></td>
+        <td><%= staff.name %></td>
+        <td><%= staff.phone_no %></td>
+        <td><%#= staff.email %></td>
+        <td>
+          <%if staff.is_admin%>
+            <p style="color: #009933">
+              <%= staff.is_admin %>
+            </p>
+          <%else%>
+            <p style="color: #bfbfbf">
+              <%= staff.is_admin %>
+            </p>
+          <%end%>
+        </td>
+        <td><%= staff.position.name %></td>
+        <td>(<%= staff.department.code %>) <%= staff.department.name %></td>
+        <td><%= link_to 'Show', staff, class: "btn btn-outline-success btn-sm" %></td>
+        <td><%= link_to 'Edit', edit_staff_path(staff), class: "btn btn-outline-info btn-sm" %></td>
+        <td><%= link_to 'Destroy', staff, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm"  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= button_to 'New Staff', new_staff_path, class: "btn btn-primary", method: :get %>

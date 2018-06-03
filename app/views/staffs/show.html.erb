@@ -1,0 +1,66 @@
+
+
+<td><%= link_to 'Edit', edit_staff_path(@staff), class: "btn btn-outline-info btn-lg" %></td>
+<td><%= link_to 'Back', staffs_path, class: "btn btn-outline-dark btn-lg" %></td>
+
+
+<table align="center" class="table table-striped" >
+  <thead class="thead-light">
+    <tr>
+      <th>Staff no</th>
+      <td><%= @staff.staff_no %></td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td><%= @staff.name %></td>
+    </tr>
+    <tr>
+      <th>Phone no</th>
+      <td><%= @staff.phone_no %></td>
+    </tr>
+    <tr>
+      <th>Email</th>
+      <td><%#= @staff.email %></td>
+    </tr>
+    <tr>
+      <th>Admin</th>
+      <td><%= @staff.is_admin %></td>
+    </tr>
+    <tr>
+      <th>Position</th>
+      <td><%= @staff.position.name %></td>
+    </tr>
+    <tr>
+      <th>Department</th>
+      <td>(<%= @staff.department.code %>) <%= @staff.department.name %></td>
+    </tr>
+  </thead>
+
+  <% @mails = Mail.where("recipient_id = ?", @staff.id) %>
+  <% if !@mails.blank? %>
+      <table class="table table-bordered">
+      <thead class="thead-light">
+        <tr>
+          <th>Mail no</th>
+          <th>Issue</th>
+          <th>Recipient</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        
+        <% @mails.each do |mail| %>
+          <tr>
+            <td><%= mail.mail_no %></td>
+            <td><%= mail.issue.name %></td>
+            <td>(<%= mail.recipient.staff_no %>) <%= mail.recipient.name %></td>
+            <td><%= mail.mail_histories.last.status_delivery.name %></td>
+            <td><%= link_to 'Show', mail, class: "btn btn-outline-success btn-sm" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+  

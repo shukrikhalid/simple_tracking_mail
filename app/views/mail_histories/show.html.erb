@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Mail:</strong>
+  <%= @mail_history.mail %>
+</p>
+
+<p>
+  <strong>Staff:</strong>
+  <%= @mail_history.staff %>
+</p>
+
+<p>
+  <strong>Status delivery:</strong>
+  <%= @mail_history.status_delivery %>
+</p>
+
+<%= link_to 'Edit', edit_mail_history_path(@mail_history) %> |
+<%= link_to 'Back', mail_histories_path %>

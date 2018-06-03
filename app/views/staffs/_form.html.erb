@@ -1,0 +1,65 @@
+<%= form_with(model: staff, local: true) do |form| %>
+  <% if staff.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(staff.errors.count, "error") %> prohibited this staff from being saved:</h2>
+
+      <ul>
+      <% staff.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :staff_no %>
+    <%= form.text_field :staff_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_no %>
+    <%= form.text_field :phone_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_admin %>
+    <%= form.check_box :is_admin %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position_id %>
+    <%= form.select :position_id, Position.all.map{ |d| [d.name, d.id]},  {prompt: "Select Position"} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_id %>
+    <%= form.select :department_id, Department.all.map{ |d| ["(#{d.code}) #{d.name}", d.id]}, {prompt: "Select Department"} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= form.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %><br />
+    <%= form.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

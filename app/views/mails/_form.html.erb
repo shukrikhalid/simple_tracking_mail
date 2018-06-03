@@ -1,0 +1,32 @@
+<%= form_with(model: mail, local: true) do |form| %>
+  <% if mail.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mail.errors.count, "error") %> prohibited this mail from being saved:</h2>
+
+      <ul>
+      <% mail.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :mail_no %>
+    <%= form.text_field :mail_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issue_id %>
+    <%= form.select :issue_id, Issue.all.map{ |d| [d.name, d.id]},  {prompt: "Select Staff"} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recipient_id %>
+    <%= form.select :recipient_id, Staff.all.map{ |d| [d.name, d.id]},  {prompt: "Select Staff"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
